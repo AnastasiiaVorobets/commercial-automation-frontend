@@ -1,0 +1,24 @@
+<app-header></app-header>
+
+<div class="cart-container" *ngIf="items.length === 0">
+  <p class="empty-cart-message">Your cart is empty</p>
+</div>
+<div class="cart-container" *ngIf="items.length > 0">
+  <h2 class="cart-header">Your Cart</h2>
+  <ul class="cart-items">
+    <li class="cart-item" *ngFor="let item of items">
+      <h3 class="item-name">{{ item.product.name }}</h3>
+      <p class="item-price">Price: ${{ item.product.price }}</p>
+      <p class="item-quantity">Quantity: {{ item.quantity }}</p>
+    </li>
+  </ul>
+  <div class="cart-summary">
+    <p class="total-amount">Total Amount: ${{ getTotalAmount() }}</p>
+  </div>
+  <div class="cart-actions">
+    <button class="cart-button clear-button" (click)="clearCart()">Clear Cart</button>
+    <button class="cart-button checkout-button" (click)="checkout()">Checkout</button>
+  </div>
+</div>
+
+<p *ngIf="message" class="cart-message">{{ message }}</p>

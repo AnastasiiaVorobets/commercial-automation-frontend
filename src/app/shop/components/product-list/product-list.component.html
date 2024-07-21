@@ -1,0 +1,9 @@
+<app-header></app-header>
+
+<div class="product-list">
+  <div *ngFor="let product of products" class="product-list__item">
+    <h3 class="product-list__item-title">{{ product.name }}</h3>
+    <p class="product-list__item-price">{{ product.price | currency }}</p>
+    <a class="product-list__item-link" [routerLink]="['./', product._id]">View Details</a>
+  </div>
+</div>

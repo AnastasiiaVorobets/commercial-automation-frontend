@@ -1,0 +1,10 @@
+<app-header></app-header>
+
+<div class="product-detail" *ngIf="product">
+  <h2 class="product-detail__name">{{ product.name }}</h2>
+  <p class="product-detail__price">{{ product.price | currency }}</p>
+  <p class="product-detail__unit">Unit: {{ product.unit }}</p>
+  <button class="product-detail__add-to-cart-button" (click)="addToCart(product)">Add to Cart</button>
+</div>
+
+<p *ngIf="message" class="product-detail__message">{{ message }}</p>
