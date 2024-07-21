@@ -1,0 +1,43 @@
+<div class="manage-users">
+  <h2 class="manage-users__title">Manage Users</h2>
+  <form [formGroup]="userForm" (ngSubmit)="addUser()" class="manage-users__form">
+    <label for="firstName" class="manage-users__form-label">First Name</label>
+    <input id="firstName" formControlName="firstName" type="text" class="manage-users__form-input">
+
+    <label for="lastName" class="manage-users__form-label">Last Name</label>
+    <input id="lastName" formControlName="lastName" type="text" class="manage-users__form-input">
+
+    <label for="middleName" class="manage-users__form-label">Middle Name</label>
+    <input id="middleName" formControlName="middleName" type="text" class="manage-users__form-input">
+
+    <label for="address" class="manage-users__form-label">Address</label>
+    <input id="address" formControlName="address" type="text" class="manage-users__form-input">
+
+    <label for="phone" class="manage-users__form-label">Phone</label>
+    <input id="phone" formControlName="phone" type="text" class="manage-users__form-input">
+
+    <label for="email" class="manage-users__form-label">Email</label>
+    <input id="email" formControlName="email" type="email" class="manage-users__form-input">
+
+    <label for="password" class="manage-users__form-label">Password</label>
+    <input id="password" formControlName="password" type="password" class="manage-users__form-input">
+
+    <label for="role" class="manage-users__form-label">Role</label>
+    <select id="role" formControlName="role" class="manage-users__form-select">
+      <option value="admin">Admin</option>
+      <option value="customer">Customer</option>
+    </select>
+
+    <label for="isPermanentCustomer" class="manage-users__form-label">Is Permanent Customer</label>
+    <input id="isPermanentCustomer" formControlName="isPermanentCustomer" type="checkbox" class="manage-users__form-checkbox">
+
+    <button type="submit" [disabled]="!userForm.valid" class="manage-users__form-button">Add User</button>
+  </form>
+
+  <ul class="manage-users__list">
+    <li *ngFor="let user of users" class="manage-users__list-item">
+      {{ user.firstName }} {{ user.lastName }} - {{ user.email }} - {{ user.role }}
+      <button (click)="deleteUser(user.id)" class="manage-users__list-item-button">Delete</button>
+    </li>
+  </ul>
+</div>

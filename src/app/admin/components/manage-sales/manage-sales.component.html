@@ -1,0 +1,31 @@
+<div class="manage-sales">
+  <h2 class="manage-sales__title">Manage Sales</h2>
+  <form [formGroup]="saleForm" (ngSubmit)="addSale()" class="manage-sales__form">
+    <label for="product" class="manage-sales__form-label">Product</label>
+    <input id="product" formControlName="product" type="text" class="manage-sales__form-input">
+
+    <label for="customer" class="manage-sales__form-label">Customer</label>
+    <input id="customer" formControlName="customer" type="text" class="manage-sales__form-input">
+
+    <label for="quantity" class="manage-sales__form-label">Quantity</label>
+    <input id="quantity" formControlName="quantity" type="number" class="manage-sales__form-input">
+
+    <label for="price" class="manage-sales__form-label">Price</label>
+    <input id="price" formControlName="price" type="number" class="manage-sales__form-input">
+
+    <label for="saleDate" class="manage-sales__form-label">Sale Date</label>
+    <input id="saleDate" formControlName="saleDate" type="date" class="manage-sales__form-input">
+
+    <label for="deliveryDate" class="manage-sales__form-label">Delivery Date</label>
+    <input id="deliveryDate" formControlName="deliveryDate" type="date" class="manage-sales__form-input">
+
+    <button type="submit" [disabled]="!saleForm.valid" class="manage-sales__form-button">Add Sale</button>
+  </form>
+
+  <ul class="manage-sales__list">
+    <li *ngFor="let sale of sales" class="manage-sales__list-item">
+      {{ sale.product }} - {{ sale.user }} - {{ sale.quantity }} - {{ sale.saleDate | date }} - {{ sale.deliveryDate | date }}
+      <button (click)="deleteSale(sale._id)" class="manage-sales__list-item-button">Delete</button>
+    </li>
+  </ul>
+</div>

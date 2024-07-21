@@ -1,0 +1,22 @@
+<div class="manage-products">
+  <h2 class="manage-products__title">Manage Products</h2>
+  <form [formGroup]="productForm" (ngSubmit)="addProduct()" class="manage-products__form">
+    <label for="name" class="manage-products__form-label">Product Name</label>
+    <input id="name" formControlName="name" type="text" class="manage-products__form-input">
+
+    <label for="price" class="manage-products__form-label">Price</label>
+    <input id="price" formControlName="price" type="number" class="manage-products__form-input">
+
+    <label for="unit" class="manage-products__form-label">Unit</label>
+    <input id="unit" formControlName="unit" type="text" class="manage-products__form-input">
+
+    <button type="submit" [disabled]="!productForm.valid" class="manage-products__form-button">Add Product</button>
+  </form>
+
+  <ul class="manage-products__list">
+    <li *ngFor="let product of products" class="manage-products__list-item">
+      {{ product.name }} - {{ product.price }} - {{ product.unit }}
+      <button (click)="deleteProduct(product._id)" class="manage-products__list-item-button">Delete</button>
+    </li>
+  </ul>
+</div>

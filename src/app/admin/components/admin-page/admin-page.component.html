@@ -1,0 +1,10 @@
+<div class="admin-page">
+  <h1 class="admin-page__title">Welcome to Admin Page</h1>
+  <nav class="admin-page__nav">
+    <a class="admin-page__nav-link" routerLink="products">Manage Products</a>
+    <a class="admin-page__nav-link" routerLink="sales">Manage Sales</a>
+    <a class="admin-page__nav-link" routerLink="users">Manage Users</a>
+    <button class="admin-page__logout-button" (click)="logout()">Logout</button>
+  </nav>
+  <router-outlet class="admin-page__router-outlet"></router-outlet>
+</div>
