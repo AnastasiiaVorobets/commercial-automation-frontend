@@ -1,0 +1,104 @@
+// Загальні стилі для форми входу у пастельних тонах
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  .login-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #6c757d;
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      .form-label {
+        font-size: 14px;
+        margin-bottom: 5px;
+        color: #6c757d;
+      }
+
+      .form-input {
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        background-color: #e9ecef;
+        &:focus {
+          outline: none;
+          border-color: #86b7fe;
+        }
+      }
+
+      .error-messages {
+        margin-top: 5px;
+      }
+
+      .error-message {
+        color: #ff4d4f;
+        font-size: 12px;
+      }
+    }
+
+    .submit-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #86b7fe;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #5a99e0;
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+
+    .error-messages {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .error-message {
+      color: #ff4d4f;
+      font-size: 14px;
+    }
+  }
+
+  .register-redirect {
+    text-align: center;
+    margin-top: 20px;
+
+    .redirect-message {
+      font-size: 14px;
+      color: #6c757d;
+    }
+
+    .redirect-link {
+      color: #86b7fe;
+      text-decoration: none;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
