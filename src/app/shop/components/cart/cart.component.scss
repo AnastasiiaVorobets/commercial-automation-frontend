@@ -45,9 +45,15 @@
     margin-top: 20px;
     text-align: right;
 
+    .original-amount,
     .total-amount {
       font-size: 20px;
       color: #495057;
+    }
+
+    .discount-message {
+      font-size: 18px;
+      color: #28a745;
     }
   }
 

@@ -45,4 +45,5 @@ export class CartService {
   getTotalAmount(): number {
     return this.items.reduce((total, item) => total + (item.product.price * item.quantity), 0);
   }
+  
 }

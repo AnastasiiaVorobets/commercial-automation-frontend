@@ -35,6 +35,7 @@ export class ManageSalesComponent implements OnInit {
   loadSales(): void {
     this.saleService.getSales().subscribe((data: Sale[]) => {
       this.sales = data;
+      console.log(data)
     });
   }
 
@@ -48,9 +49,7 @@ export class ManageSalesComponent implements OnInit {
   }
 
   deleteSale(id: string): void {
-    const currentUserId = this.authService.getUserId();
-    console.log(`User with ID: ${currentUserId}`);
-    this.saleService.deleteSale(currentUserId).subscribe(() => {
+    this.saleService.deleteSale(id).subscribe(() => {
       this.loadSales();
     });
   }

@@ -13,7 +13,9 @@
     </li>
   </ul>
   <div class="cart-summary">
-    <p class="total-amount">Total Amount: ${{ getTotalAmount() }}</p>
+    <p class="original-amount">Original Amount: ${{ originalAmount }}</p>
+    <p *ngIf="isPermanentCustomer" class="discount-message">Discount: {{ discountRate * 100 }}% (You saved ${{ discountAmount }})</p>
+    <p class="total-amount">Total Amount after Discount: ${{ totalAmount }}</p>
   </div>
   <div class="cart-actions">
     <button class="cart-button clear-button" (click)="clearCart()">Clear Cart</button>

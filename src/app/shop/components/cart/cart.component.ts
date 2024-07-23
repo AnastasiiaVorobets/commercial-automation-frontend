@@ -14,6 +14,12 @@ import { Sale } from '../../../models/sale.model';
 export class CartComponent implements OnInit {
   items: { product: Product, quantity: number }[] = [];
   message: string = '';
+  discountThreshold: number = 5000;
+  discountRate: number = 0.02;
+  totalAmount: number = 0;
+  originalAmount: number = 0;
+  discountAmount: number = 0;
+  isPermanentCustomer: boolean = false;
 
   constructor(
     private cartService: CartService,
@@ -24,25 +30,44 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCartItems();
-    console.log(localStorage.getItem('token'));
+    this.isPermanentCustomer = this.authService.isPermanentCustomer();
+    console.log('Is permanent customer:', this.isPermanentCustomer);
+    this.updateAmounts();
   }
 
   loadCartItems(): void {
     this.items = this.cartService.getItems();
+    console.log('Loaded cart items:', this.items);
+    this.updateAmounts();
   }
 
   clearCart(): void {
     this.cartService.clearCart();
     this.items = [];
+    this.totalAmount = 0;
+    this.originalAmount = 0;
+    this.discountAmount = 0;
+    console.log('Cart cleared');
   }
 
-  getTotalAmount(): number {
-    return this.cartService.getTotalAmount();
+  updateAmounts(): void {
+    this.originalAmount = this.cartService.getTotalAmount();
+    console.log('Original total amount:', this.originalAmount);
+
+    if (this.isPermanentCustomer) {
+      this.discountAmount = this.originalAmount * this.discountRate;
+      this.totalAmount = this.originalAmount - this.discountAmount;
+      console.log('Discount applied. New total amount:', this.totalAmount);
+    } else {
+      this.discountAmount = 0;
+      this.totalAmount = this.originalAmount;
+    }
   }
 
   async checkout(): Promise<void> {
     if (this.items.length === 0) {
       this.message = 'Cart is empty!';
+      console.log('Checkout failed: cart is empty');
       return;
     }
 
@@ -53,6 +78,7 @@ export class CartComponent implements OnInit {
     try {
       await this.saleService.createSale(sale).toPromise();
       this.message = 'Order placed successfully!';
+      console.log('Order placed successfully');
       this.clearCart();
       setTimeout(() => {
         this.router.navigate(['/']);
@@ -62,8 +88,9 @@ export class CartComponent implements OnInit {
       const typedError = error as { status?: number };
       if (typedError.status === 401) {
         this.message = 'You need to log in or register to complete the order.';
+        console.log('Checkout failed: user needs to log in');
         setTimeout(() => {
-          this.router.navigate(['/auth/register']);
+          this.router.navigate(['/auth/login']);
         }, 5000);
       } else {
         this.message = 'Error placing order. Please try again.';
@@ -82,7 +109,7 @@ export class CartComponent implements OnInit {
       saleDate: saleDate,
       deliveryDate: deliveryDate,
       quantity: this.items.reduce((total, item) => total + item.quantity, 0),
-      totalAmount: this.getTotalAmount()
+      totalAmount: this.totalAmount
     };
   }
 }

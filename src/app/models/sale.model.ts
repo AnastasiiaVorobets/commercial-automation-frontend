@@ -5,5 +5,5 @@ export interface Sale {
   saleDate: Date;
   deliveryDate: Date;
   quantity: number;
-  totalAmount?: number;
+  totalAmount: number;
 }

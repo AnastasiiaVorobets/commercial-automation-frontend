@@ -8,7 +8,7 @@ import { AuthResponse, User } from '../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = `http://localhost:3000/api/auth`;
+  private apiUrl = 'http://localhost:3000/api/auth';
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +23,17 @@ export class AuthService {
     );
   }
 
-  register(user: { username: string, email: string, password: string, role: string }): Observable<AuthResponse> {
+  register(user: {
+    firstName: string,
+    lastName: string,
+    middleName: string,
+    address: string,
+    phone: string,
+    email: string,
+    password: string,
+    role: string,
+    isPermanentCustomer: boolean
+  }): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/register`, user).pipe(
       tap(response => {
         if (response.token) {
@@ -48,7 +58,13 @@ export class AuthService {
   }
 
   getUserId(): string {
-    const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+    const currentUser = this.getUser();
     return currentUser.id || '';
+  }
+
+  isPermanentCustomer(): boolean {
+    const user = this.getUser();
+    console.log('User retrieved from localStorage:', user);
+    return user && user.isPermanentCustomer;
   }
 }
