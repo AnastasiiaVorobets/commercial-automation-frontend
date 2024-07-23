@@ -16,10 +16,15 @@ export class CartComponent implements OnInit {
   message: string = '';
   discountThreshold: number = 5000;
   discountRate: number = 0.02;
+  additionalDiscountThresholds: { threshold: number, rate: number }[] = [
+    { threshold: 10000, rate: 0.03 },
+    { threshold: 20000, rate: 0.05 }
+  ];
   totalAmount: number = 0;
   originalAmount: number = 0;
   discountAmount: number = 0;
   isPermanentCustomer: boolean = false;
+  appliedDiscountRate: number = 0;
 
   constructor(
     private cartService: CartService,
@@ -50,14 +55,27 @@ export class CartComponent implements OnInit {
     console.log('Cart cleared');
   }
 
+  calculateDiscountRate(): number {
+    let applicableDiscountRate = this.discountRate;
+
+    for (const threshold of this.additionalDiscountThresholds) {
+      if (this.originalAmount >= threshold.threshold) {
+        applicableDiscountRate = threshold.rate;
+      }
+    }
+
+    return applicableDiscountRate;
+  }
+
   updateAmounts(): void {
     this.originalAmount = this.cartService.getTotalAmount();
     console.log('Original total amount:', this.originalAmount);
 
     if (this.isPermanentCustomer) {
-      this.discountAmount = this.originalAmount * this.discountRate;
+      this.appliedDiscountRate = this.calculateDiscountRate();
+      this.discountAmount = this.originalAmount * this.appliedDiscountRate;
       this.totalAmount = this.originalAmount - this.discountAmount;
-      console.log('Discount applied. New total amount:', this.totalAmount);
+      console.log(`Discount applied (rate: ${this.appliedDiscountRate * 100}%). New total amount:`, this.totalAmount);
     } else {
       this.discountAmount = 0;
       this.totalAmount = this.originalAmount;

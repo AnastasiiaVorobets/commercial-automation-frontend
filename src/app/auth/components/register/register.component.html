@@ -56,7 +56,11 @@
 
     <div class="form-group">
       <label for="role" class="form-label">Role:</label>
-      <input id="role" formControlName="role" type="text" class="form-input" />
+      <select id="role" formControlName="role" class="form-input">
+        <option value="" disabled>Select role</option>
+        <option value="admin">Admin</option>
+        <option value="customer">Customer</option>
+      </select>
       <div *ngIf="submitted && formControls['role'].errors" class="error-message">
         <div *ngIf="formControls['role'].errors['required']">Role is required</div>
       </div>

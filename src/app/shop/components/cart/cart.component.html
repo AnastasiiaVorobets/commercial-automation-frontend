@@ -14,8 +14,21 @@
   </ul>
   <div class="cart-summary">
     <p class="original-amount">Original Amount: ${{ originalAmount }}</p>
-    <p *ngIf="isPermanentCustomer" class="discount-message">Discount: {{ discountRate * 100 }}% (You saved ${{ discountAmount }})</p>
+    <p *ngIf="isPermanentCustomer" class="discount-message">
+      Discount: {{ appliedDiscountRate * 100 }}% (You saved ${{ discountAmount }})
+    </p>
     <p class="total-amount">Total Amount after Discount: ${{ totalAmount }}</p>
+  </div>
+  <div class="cart-discounts">
+    <h3>Discount Information</h3>
+    <ul>
+      <li>Permanent Customer Discount: 2% on all orders</li>
+      <li>Additional Discounts:</li>
+      <ul>
+        <li>3% for orders over $10,000</li>
+        <li>5% for orders over $20,000</li>
+      </ul>
+    </ul>
   </div>
   <div class="cart-actions">
     <button class="cart-button clear-button" (click)="clearCart()">Clear Cart</button>
