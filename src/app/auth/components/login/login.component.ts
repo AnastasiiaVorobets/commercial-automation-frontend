@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
             if (userRole === 'customer') {
               this.router.navigate(['/shop']);
             } else {
-              this.router.navigate(['/admin']);
+              this.router.navigate(['/admin/products']);
             }
           } else {
             this.errorMessage = 'Invalid response from server';

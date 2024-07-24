@@ -17,7 +17,7 @@ import { CartComponent } from './components/cart/cart.component';
     FooterComponent,
     HomeComponent,
     NotFoundComponent,
-    CartComponent
+    CartComponent,
   ],
   imports: [
     CommonModule,
